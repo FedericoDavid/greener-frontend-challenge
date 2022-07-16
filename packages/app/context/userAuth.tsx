@@ -42,6 +42,8 @@ export function AuthUserContextProvider({ children }) {
             setUser(res);
          } else {
             setUser(null);
+            console.log("unauthorized");
+            setIsError(true);
          }
          setIsError(false);
          setIsLoading(false);
