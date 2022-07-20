@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
    Button,
    Input,
@@ -15,20 +15,19 @@ import { useForm, Controller } from "react-hook-form";
 
 import { useAuthUserContext } from "app/context/userAuth";
 
-type FormInputProps = {
+type SignInInputProps = {
    email: string;
    password: string;
 };
 
-interface SigninProps {}
+interface SignInProps {}
 
-const Signin: React.FC<SigninProps> = () => {
-   const [error, setError] = useState(false);
+const SignIn: React.FC<SignInProps> = () => {
    const {
       control,
       handleSubmit,
       formState: { errors },
-   } = useForm<FormInputProps>({
+   } = useForm<SignInInputProps>({
       defaultValues: {
          email: "",
          password: "",
@@ -37,7 +36,7 @@ const Signin: React.FC<SigninProps> = () => {
    const { Label } = FormControl;
    const { signInUser, forgotPassword, isError } = useAuthUserContext();
 
-   const onSubmit = (data: FormInputProps) => {
+   const onSubmit = (data: SignInInputProps) => {
       if (!data) return;
 
       signInUser(data.email, data.password);
@@ -127,13 +126,13 @@ const Signin: React.FC<SigninProps> = () => {
             </Link>
             <VStack space={2}>
                <Button
-                  colorScheme="cyan"
+                  colorScheme="indigo"
                   _text={{
                      color: "white",
                   }}
                   onPress={handleSubmit(onSubmit)}
                >
-                  Login
+                  Sign Up
                </Button>
             </VStack>
             <HStack justifyContent="center">
@@ -152,10 +151,9 @@ const Signin: React.FC<SigninProps> = () => {
                   Sign Up
                </Link>
             </HStack>
-            <Text>{isError && error && "Error"}</Text>
          </VStack>
       </Box>
    );
 };
 
-export default Signin;
+export default SignIn;
