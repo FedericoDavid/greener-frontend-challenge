@@ -2,7 +2,6 @@ import React from "react";
 
 import { Navbar } from "app/components/Navbar";
 import { useAuthUserContext } from "app/context/userAuth";
-import { Auth } from "app/components/auth";
 
 export function HomeScreen() {
    const { user, isLoading, isError } = useAuthUserContext();
@@ -13,8 +12,7 @@ export function HomeScreen() {
 
    return (
       <div>
-         <Navbar />
-         {!user && <Auth />}
+         <Navbar user={user} />
       </div>
    );
 }

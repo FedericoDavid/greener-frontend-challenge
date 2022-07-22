@@ -4,7 +4,6 @@ import {
    HStack,
    Image,
    Text,
-   Center,
    View,
    Box,
    Button,
@@ -14,13 +13,17 @@ import {
    IconButton,
 } from "native-base";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { FaUserCircle } from "react-icons/fa";
+
+import { User } from "app/context/userAuth";
 
 const greenerLogo = require("../../app/assets/logo-greener.svg");
+interface NavbarProps {
+   user: User;
+}
 
-interface NavbarProps {}
-
-export const Navbar: React.FC<NavbarProps> = () => {
-   const [isSmallScreen] = useMediaQuery({ maxWidth: 412 });
+export const Navbar: React.FC<NavbarProps> = ({ user }) => {
+   const [isSmallScreen] = useMediaQuery({ maxWidth: 768 });
 
    const Logo = (): JSX.Element => (
       <Image
@@ -30,47 +33,75 @@ export const Navbar: React.FC<NavbarProps> = () => {
          source={{ uri: greenerLogo.default.src }}
          alt="greener-logo"
          cursor="pointer"
+         marginLeft="15px"
       />
    );
 
-   const NavText = ({ label }): JSX.Element => (
-      <Text color="#fff" fontWeight="bold">
+   const NavText = (label: string, marginRight?: string) => (
+      <Text
+         color="#fff"
+         fontWeight="bold"
+         marginRight={marginRight ?? ""}
+         cursor="pointer"
+      >
          {label}
       </Text>
    );
 
-   const renderDesktopNavbar = () => (
-      <HStack space={4} backgroundColor="#181A20">
-         {isSmallScreen && "holaaa"}
-         <Center w="130" marginLeft="30px">
+   const renderDesktop = () => (
+      <HStack
+         bg="#181A20"
+         px="1"
+         justifyContent="space-between"
+         alignItems="center"
+         w="100%"
+         backgroundColor="#181A20"
+      >
+         <HStack justifyContent="space-between" width="50%" alignItems="center">
             <Logo />
-         </Center>
-         <Center w="20">
-            <NavText label="Buy cripto" />
-         </Center>
-         <Center w="20">
-            <NavText label="Market" />
-         </Center>
-         <Center w="20">
-            <NavText label="Trading" />
-         </Center>
-         <Center w="20">
-            <NavText label="Earn" />
-         </Center>
-         <Center w="20">
-            <Text>Finances</Text>
-         </Center>
-         <Center w="20">
-            <Text>NFT</Text>
-         </Center>
-         <Center flexDirection="row" width="50%" justifyContent="flex-end">
-            <Button mx="20px">Iniciar sesion</Button>
-            <Button marginRight="20px">Registrarse</Button>
-         </Center>
+            {NavText("Buy cripto")}
+            {NavText("Market")}
+            {NavText("Trading")}
+            {NavText("Earn")}
+            {NavText("Finances")}
+            {NavText("NFT")}
+         </HStack>
+         <HStack alignItems="center">
+            {!user ? (
+               <>
+                  <Link href="/signin">
+                     <Button
+                        variant="ghost"
+                        colorScheme="indigo"
+                        _text={{
+                           color: "white",
+                        }}
+                     >
+                        Iniciar sesion
+                     </Button>
+                  </Link>
+                  <Link href="signin">
+                     <Button mx="20px" colorScheme="indigo">
+                        Registrarse
+                     </Button>
+                  </Link>
+                  {NavText("Descargar", "20px")}
+               </>
+            ) : (
+               <>
+                  <IconButton
+                     fontSize="24px"
+                     color="white"
+                     icon={<Icon as={FaUserCircle} name="user" />}
+                  />
+                  <Button marginRight="20px">Registrarse</Button>
+               </>
+            )}
+         </HStack>
       </HStack>
    );
 
-   const renderMobileNavbar = () => (
+   const renderMobile = () => (
       <View>
          <StatusBar backgroundColor="#181A20" />
          <Box safeAreaTop bg="#181A20" />
@@ -80,7 +111,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
             justifyContent="space-between"
             alignItems="center"
             w="100%"
-            maxW="412"
+            maxW="768px"
          >
             <HStack alignItems="center">
                <Logo />
@@ -89,12 +120,12 @@ export const Navbar: React.FC<NavbarProps> = () => {
                <IconButton
                   fontSize="24px"
                   color="white"
-                  icon={<Icon as={GiHamburgerMenu} name="favorite" />}
+                  icon={<Icon as={GiHamburgerMenu} name="menu" />}
                />
             </HStack>
          </HStack>
       </View>
    );
 
-   return <>{isSmallScreen ? renderMobileNavbar() : renderDesktopNavbar()}</>;
+   return <>{isSmallScreen ? renderMobile() : renderDesktop()}</>;
 };

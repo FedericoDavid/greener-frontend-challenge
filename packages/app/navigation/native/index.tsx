@@ -1,32 +1,50 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { SignIn } from "app/features/signin/Signin";
+import { SignUp } from "app/features/signup/Signup";
 
-import { HomeScreen } from '../../features/home/screen'
-import { UserDetailScreen } from '../../features/user/detail-screen'
+import { HomeScreen } from "../../features/home/screen";
+import { UserDetailScreen } from "../../features/user/detail-screen";
 
 const Stack = createNativeStackNavigator<{
-  home: undefined
-  'user-detail': {
-    id: string
-  }
-}>()
+   home: undefined;
+   signin: undefined;
+   signup: undefined;
+   "user-detail": {
+      id: string;
+   };
+}>();
 
 export function NativeNavigation() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="home"
-        component={HomeScreen}
-        options={{
-          title: 'Home',
-        }}
-      />
-      <Stack.Screen
-        name="user-detail"
-        component={UserDetailScreen}
-        options={{
-          title: 'User',
-        }}
-      />
-    </Stack.Navigator>
-  )
+   return (
+      <Stack.Navigator>
+         <Stack.Screen
+            name="home"
+            component={HomeScreen}
+            options={{
+               title: "Home",
+            }}
+         />
+         <Stack.Screen
+            name="user-detail"
+            component={UserDetailScreen}
+            options={{
+               title: "User",
+            }}
+         />
+         <Stack.Screen
+            name="signin"
+            component={SignIn}
+            options={{
+               title: "Signin",
+            }}
+         />
+         <Stack.Screen
+            name="signup"
+            component={SignUp}
+            options={{
+               title: "Signup",
+            }}
+         />
+      </Stack.Navigator>
+   );
 }

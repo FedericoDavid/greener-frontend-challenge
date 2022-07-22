@@ -14,7 +14,7 @@ export const AuthUserContext = createContext<any>({});
 
 export const useAuthUserContext = () => useContext(AuthUserContext);
 
-interface User {
+export interface User {
    email: string;
    password?: string;
    displayName?: string;
