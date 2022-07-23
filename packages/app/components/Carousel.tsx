@@ -82,7 +82,13 @@ export const Carousel: React.FC<CarouselProps> = () => {
    });
 
    return (
-      <Box display="flex" alignItems="center" height="50%">
+      <Box
+         display="flex"
+         alignItems="center"
+         margin="auto"
+         marginTop="65px"
+         width="80%"
+      >
          <AliceCarousel
             mouseTracking
             infinite

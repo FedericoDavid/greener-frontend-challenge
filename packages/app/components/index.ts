@@ -4,4 +4,5 @@ export * from './SingleHeader';
 export * from './MainLogo';
 export * from './Carousel';
 export * from './Hero';
+export * from './MainList';
 

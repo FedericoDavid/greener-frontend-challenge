@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Text, Image } from "native-base";
+import { Box, Text, Image, View } from "native-base";
 import { Carousel } from "./Carousel";
 
 const background = require("../assets/hero-background.jpg");
@@ -9,19 +9,19 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ isSmallScreen }) => (
-   <>
+   <div style={{ height: "500px" }}>
       <Image
          source={{ uri: background.default.src }}
          size="100%"
          resizeMode="cover"
+         alt="background-hero"
       />
       <Box
-         h={400}
          paddingTop={25}
          display="flex"
          flexDirection="column"
          justifyContent="space-around"
-         bottom={465}
+         bottom={isSmallScreen ? 355 : 455}
       >
          <Box
             display="flex"
@@ -39,5 +39,5 @@ export const Hero: React.FC<HeroProps> = ({ isSmallScreen }) => (
          </Box>
          {!isSmallScreen && <Carousel />}
       </Box>
-   </>
+   </div>
 );

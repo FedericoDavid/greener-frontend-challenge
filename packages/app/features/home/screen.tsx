@@ -2,7 +2,7 @@ import React from "react";
 import "react-alice-carousel/lib/alice-carousel.css";
 
 import { useAuthUserContext } from "app/context/userAuth";
-import { Hero, Navbar } from "app/components";
+import { Hero, MainList, Navbar } from "app/components";
 import { useMediaQuery } from "native-base";
 
 export function HomeScreen() {
@@ -17,6 +17,7 @@ export function HomeScreen() {
       <div>
          <Navbar user={user} isSmallScreen={isSmallScreen} />
          <Hero isSmallScreen={isSmallScreen} />
+         <MainList />
       </div>
    );
 }

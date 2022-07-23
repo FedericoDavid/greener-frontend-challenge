@@ -42,7 +42,7 @@ export const Navbar: React.FC<NavbarProps> = ({ user, isSmallScreen }) => {
          w="100%"
          backgroundColor="#181A20"
       >
-         <HStack justifyContent="space-between" width="45%" alignItems="center">
+         <HStack justifyContent="space-between" width="50%" alignItems="center">
             <MainLogo />
             {NavText("Buy cripto")}
             {NavText("Market")}
