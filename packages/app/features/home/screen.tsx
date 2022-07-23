@@ -1,10 +1,13 @@
 import React from "react";
+import "react-alice-carousel/lib/alice-carousel.css";
 
-import { Navbar } from "app/components/Navbar";
 import { useAuthUserContext } from "app/context/userAuth";
+import { Hero, Navbar } from "app/components";
+import { useMediaQuery } from "native-base";
 
 export function HomeScreen() {
    const { user, isLoading, isError } = useAuthUserContext();
+   const [isSmallScreen] = useMediaQuery({ maxWidth: 768 });
 
    if (isError) return <p>Error message</p>; //check error message
 
@@ -12,7 +15,8 @@ export function HomeScreen() {
 
    return (
       <div>
-         <Navbar user={user} />
+         <Navbar user={user} isSmallScreen={isSmallScreen} />
+         <Hero isSmallScreen={isSmallScreen} />
       </div>
    );
 }

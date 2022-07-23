@@ -37,6 +37,7 @@ export function AuthUserContextProvider({ children }) {
 
    useEffect(() => {
       setIsLoading(true);
+
       const unsubscribe = onAuthStateChanged(auth, (res) => {
          if (res) {
             setUser(res);
@@ -45,9 +46,11 @@ export function AuthUserContextProvider({ children }) {
             console.log("unauthorized");
             setIsError(true);
          }
+
          setIsError(false);
          setIsLoading(false);
       });
+
       return unsubscribe;
    }, []);
 
@@ -84,6 +87,7 @@ export function AuthUserContextProvider({ children }) {
 
    const signInUser = (email: string, password: string) => {
       setIsLoading(true);
+
       signInWithEmailAndPassword(auth, email, password)
          .then((res) => console.log(res))
          .catch((err) => {
