@@ -1,36 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Box, Link, useToast } from "native-base";
+import React from "react";
+import { Box, Link } from "native-base";
 import AliceCarousel from "react-alice-carousel";
 
-import { useCryptoAPIClient } from "app/services/api/useCryptoAPIClient";
 import { useFormatter } from "app/hooks/useFormatter";
 
-interface CarouselProps {}
+interface CarouselProps {
+   trendingCoins: Array<any>;
+}
 
-export const Carousel: React.FC<CarouselProps> = () => {
-   const [trendingCoins, setTrendingCoins] = useState<Array<any>>([]);
-
-   const cryptoAPIClient = useCryptoAPIClient();
+export const Carousel: React.FC<CarouselProps> = ({ trendingCoins }) => {
    const { formatNumber } = useFormatter();
-   const toast = useToast();
-
-   const getTrendingCoins = async (): Promise<void> => {
-      const res = await cryptoAPIClient.getTrendingCoins("usd");
-
-      if (!res) {
-         toast.show({
-            title: "Ups! Something went wrong.",
-            placement: "bottom",
-         });
-         return;
-      }
-
-      setTrendingCoins(res);
-   };
-
-   useEffect(() => {
-      getTrendingCoins();
-   }, []);
 
    const responsiveItems = {
       0: {

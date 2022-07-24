@@ -6,7 +6,6 @@ import {
    View,
    Box,
    Button,
-   useMediaQuery,
    StatusBar,
    Icon,
    IconButton,

@@ -22,7 +22,7 @@ export interface User {
 
 export interface UserContextProviderProps {
    user: User;
-   isLoading: boolean;
+   userLoading: boolean;
    isError: boolean;
    signInUser: (email: string, password: string) => void;
    registerUser: (email: string, password: string, name: string) => void;
@@ -32,11 +32,11 @@ export interface UserContextProviderProps {
 
 export function AuthUserContextProvider({ children }) {
    const [user, setUser] = useState<User | any>();
-   const [isLoading, setIsLoading] = useState<boolean>(false);
+   const [userIsLoading, setUserILoading] = useState<boolean>(false);
    const [isError, setIsError] = useState<boolean>(false);
 
    useEffect(() => {
-      setIsLoading(true);
+      setUserILoading(true);
 
       const unsubscribe = onAuthStateChanged(auth, (res) => {
          if (res) {
@@ -48,7 +48,7 @@ export function AuthUserContextProvider({ children }) {
          }
 
          setIsError(false);
-         setIsLoading(false);
+         setUserILoading(false);
       });
 
       return unsubscribe;
@@ -59,7 +59,7 @@ export function AuthUserContextProvider({ children }) {
       password: string,
       name: string
    ) => {
-      setIsLoading(true);
+      setUserILoading(true);
 
       const userCredential = await createUserWithEmailAndPassword(
          auth,
@@ -82,11 +82,11 @@ export function AuthUserContextProvider({ children }) {
             console.error(err);
             setIsError(true);
          })
-         .finally(() => setIsLoading(false));
+         .finally(() => setUserILoading(false));
    };
 
    const signInUser = (email: string, password: string) => {
-      setIsLoading(true);
+      setUserILoading(true);
 
       signInWithEmailAndPassword(auth, email, password)
          .then((res) => console.log(res))
@@ -94,7 +94,7 @@ export function AuthUserContextProvider({ children }) {
             console.error(err.code);
             setIsError(true);
          })
-         .finally(() => setIsLoading(false));
+         .finally(() => setUserILoading(false));
    };
 
    const logoutUser = () => signOut(auth);
@@ -104,7 +104,7 @@ export function AuthUserContextProvider({ children }) {
 
    const contextValue = {
       user,
-      isLoading,
+      userIsLoading,
       isError,
       signInUser,
       registerUser,

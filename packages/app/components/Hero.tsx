@@ -1,14 +1,15 @@
 import React from "react";
-import { Box, Text, Image, View } from "native-base";
+import { Box, Text, Image } from "native-base";
 import { Carousel } from "./Carousel";
 
 const background = require("../assets/hero-background.jpg");
 
 interface HeroProps {
+   trendingCoins: Array<any>;
    isSmallScreen?: boolean;
 }
 
-export const Hero: React.FC<HeroProps> = ({ isSmallScreen }) => (
+export const Hero: React.FC<HeroProps> = ({ isSmallScreen, trendingCoins }) => (
    <div style={{ height: "500px" }}>
       <Image
          source={{ uri: background.default.src }}
@@ -21,7 +22,7 @@ export const Hero: React.FC<HeroProps> = ({ isSmallScreen }) => (
          display="flex"
          flexDirection="column"
          justifyContent="space-around"
-         bottom={isSmallScreen ? 355 : 455}
+         bottom={455}
       >
          <Box
             display="flex"
@@ -37,7 +38,7 @@ export const Hero: React.FC<HeroProps> = ({ isSmallScreen }) => (
                Buy, Trade & Hold More Than 10k Cryptocurrencies
             </Text>
          </Box>
-         {!isSmallScreen && <Carousel />}
+         <Carousel trendingCoins={trendingCoins} />
       </Box>
    </div>
 );
