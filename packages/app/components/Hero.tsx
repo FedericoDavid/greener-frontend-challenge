@@ -38,7 +38,10 @@ export const Hero: React.FC<HeroProps> = ({ isSmallScreen, trendingCoins }) => (
                Buy, Trade & Hold More Than 10k Cryptocurrencies
             </Text>
          </Box>
-         <Carousel trendingCoins={trendingCoins} />
+         <Carousel
+            trendingCoins={trendingCoins}
+            isSmallScreen={isSmallScreen}
+         />
       </Box>
    </div>
 );

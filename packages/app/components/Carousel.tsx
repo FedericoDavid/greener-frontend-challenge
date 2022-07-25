@@ -6,9 +6,13 @@ import { useFormatter } from "app/hooks/useFormatter";
 
 interface CarouselProps {
    trendingCoins: Array<any>;
+   isSmallScreen?: boolean;
 }
 
-export const Carousel: React.FC<CarouselProps> = ({ trendingCoins }) => {
+export const Carousel: React.FC<CarouselProps> = ({
+   trendingCoins,
+   isSmallScreen,
+}) => {
    const { formatNumber } = useFormatter();
 
    const responsiveItems = {
@@ -32,7 +36,7 @@ export const Carousel: React.FC<CarouselProps> = ({ trendingCoins }) => {
             textTransform="uppercase"
             color="white"
          >
-            <Link href={`/coins/${coin.id}`}>
+            <Link href={`/coin/${coin.id}`}>
                <img
                   src={coin?.image}
                   alt={coin.name}
@@ -65,7 +69,7 @@ export const Carousel: React.FC<CarouselProps> = ({ trendingCoins }) => {
          display="flex"
          alignItems="center"
          margin="auto"
-         marginTop="65px"
+         marginTop={isSmallScreen ? "50" : "65px"}
          width="80%"
       >
          <AliceCarousel

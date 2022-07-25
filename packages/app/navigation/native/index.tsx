@@ -4,11 +4,15 @@ import { HomeScreen } from "../../features/home/screen";
 import { UserDetailScreen } from "../../features/user/detail-screen";
 import { SignIn } from "app/features/signin/Signin";
 import { SignUp } from "app/features/signup/Signup";
+import { CoinDetailScren } from "app/features/coin/detail-screen";
 
 const Stack = createNativeStackNavigator<{
    home: undefined;
    signin: undefined;
    signup: undefined;
+   coin: {
+      coinId: string;
+   };
    "user-detail": {
       id: string;
    };
@@ -29,6 +33,13 @@ export function NativeNavigation() {
             component={UserDetailScreen}
             options={{
                title: "User",
+            }}
+         />
+         <Stack.Screen
+            name="coin"
+            component={CoinDetailScren}
+            options={{
+               title: "Coin",
             }}
          />
          <Stack.Screen

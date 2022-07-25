@@ -11,6 +11,7 @@ import {
    Spinner,
    ScrollView,
    Stack,
+   Link,
 } from "native-base";
 
 import { useCryptoAPIClient } from "app/services/api/useCryptoAPIClient";
@@ -57,6 +58,7 @@ export const MainList: React.FC<MainListProps> = ({ trendingCoins }) => {
          setIsLoading(false);
       }
    };
+
    useEffect(() => {
       getCoinsList();
    }, [search]);
@@ -164,79 +166,86 @@ export const MainList: React.FC<MainListProps> = ({ trendingCoins }) => {
                      data={coinsList}
                      keyExtractor={(coin) => coin.id}
                      renderItem={({ item }: { item: any }) => (
-                        <Box
-                           borderBottomWidth="1"
-                           borderColor="coolGray.200"
-                           pl="4"
-                           pr="5"
-                           py="2"
-                           width="100%"
+                        <Link
+                           href={`/coin/${item.id}`}
+                           _hover={{
+                              bg: "coolGray.100",
+                           }}
                         >
-                           <Stack
-                              direction="row"
-                              space={3}
-                              justifyContent="space-between"
-                              alignItems="center"
+                           <Box
+                              borderBottomWidth="1"
+                              borderColor="coolGray.200"
+                              pl="4"
+                              pr="5"
+                              py="2"
+                              width="100%"
                            >
-                              <Center w="10%">
-                                 <Avatar
-                                    size="48px"
-                                    source={{
-                                       uri: item?.image,
+                              <Stack
+                                 direction="row"
+                                 space={3}
+                                 justifyContent="space-between"
+                                 alignItems="center"
+                              >
+                                 <Center w="10%">
+                                    <Avatar
+                                       size="48px"
+                                       source={{
+                                          uri: item?.image,
+                                       }}
+                                    />
+                                 </Center>
+                                 <Center
+                                    w="20%"
+                                    _text={{
+                                       fontWeight: "bold",
+                                       fontSize: 16,
+                                       textAlign: "left",
+                                       width: "100%",
                                     }}
-                                 />
-                              </Center>
-                              <Center
-                                 w="20%"
-                                 _text={{
-                                    fontWeight: "bold",
-                                    fontSize: 16,
-                                    textAlign: "left",
-                                    width: "100%",
-                                 }}
-                              >
-                                 {item?.name}
-                              </Center>
-                              <Center
-                                 w="20%"
-                                 _text={{
-                                    fontWeight: "bold",
-                                    fontSize: 16,
-                                    textAlign: "left",
-                                    width: "100%",
-                                    textTransform: "uppercase",
-                                 }}
-                              >
-                                 {item?.symbol}
-                              </Center>
-                              <Center
-                                 w="25%"
-                                 _text={{
-                                    fontWeight: "bold",
-                                    fontSize: 16,
-                                    textAlign: "left",
-                                    width: "100%",
-                                 }}
-                              >
-                                 {`$${formatNumber(
-                                    item?.current_price.toFixed(2)
-                                 )}`}
-                              </Center>
-                              <Center
-                                 w="35%"
-                                 _text={{
-                                    fontWeight: "bold",
-                                    fontSize: 16,
-                                    width: "100%",
-                                    textAlign: "left",
-                                 }}
-                              >
-                                 {`$${formatNumber(
-                                    item?.market_cap.toString().slice(0, -6)
-                                 )}M`}
-                              </Center>
-                           </Stack>
-                        </Box>
+                                 >
+                                    {item?.name}
+                                 </Center>
+                                 <Center
+                                    w="20%"
+                                    _text={{
+                                       fontWeight: "bold",
+                                       fontSize: 16,
+                                       textAlign: "left",
+                                       width: "100%",
+                                       textTransform: "uppercase",
+                                    }}
+                                 >
+                                    {item?.symbol}
+                                 </Center>
+                                 <Center
+                                    w="25%"
+                                    _text={{
+                                       fontWeight: "bold",
+                                       fontSize: 16,
+                                       textAlign: "left",
+                                       width: "100%",
+                                    }}
+                                 >
+                                    {`$${formatNumber(
+                                       item?.current_price.toFixed(2)
+                                    )}`}
+                                 </Center>
+                                 <Center
+                                    w="35%"
+                                    _text={{
+                                       fontWeight: "bold",
+                                       fontSize: 16,
+                                       width: "100%",
+                                       textAlign: "left",
+                                    }}
+                                 >
+                                    {`$${formatNumber(
+                                       item?.market_cap.toString().slice(0, -6)
+                                    )}M`}
+                                 </Center>
+                              </Stack>
+                           </Box>
+                        </Link>
                      )}
                   />
                </Box>

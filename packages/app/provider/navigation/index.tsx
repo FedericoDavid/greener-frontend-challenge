@@ -17,7 +17,7 @@ export function NavigationProvider({
                   initialRouteName: "home",
                   screens: {
                      home: "",
-                     coins: "coins/:id",
+                     coin: "coin/:id",
                      "user-detail": "user/:id",
                      signin: "signin",
                      signup: "signup",

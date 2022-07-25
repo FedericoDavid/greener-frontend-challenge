@@ -10,11 +10,10 @@ import {
    HStack,
    FormControl,
 } from "native-base";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useForm, Controller } from "react-hook-form";
 
 import { useAuthUserContext } from "app/context/userAuth";
-import { SingleHeader } from "app/components";
+import { Footer, SingleHeader } from "app/components";
 
 type SignUpInputProps = {
    name: string;
@@ -161,6 +160,7 @@ export function SignUp() {
                </HStack>
             </VStack>
          </Box>
+         <Footer />
       </>
    );
 }

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useMediaQuery, useToast } from "native-base";
+import { Spinner, useMediaQuery, useToast } from "native-base";
 import "react-alice-carousel/lib/alice-carousel.css";
 
-import { Hero, MainList, Navbar } from "app/components";
+import { Footer, Hero, MainList, Navbar } from "app/components";
 
 import { useAuthUserContext } from "app/context/userAuth";
 import { useCryptoAPIClient } from "app/services/api/useCryptoAPIClient";
 
 export function HomeScreen() {
    const [trendingCoins, setTrendingCoins] = useState<Array<any>>([]);
+   const [isLoading, setIsLoading] = useState<boolean>(false);
 
    const [isSmallScreen] = useMediaQuery({ maxWidth: 768 });
    const toast = useToast();
@@ -17,6 +18,8 @@ export function HomeScreen() {
    const { user, userIsLoading, isError } = useAuthUserContext();
 
    const getTrendingCoins = async (): Promise<void> => {
+      setIsLoading(true);
+
       const res = await cryptoAPIClient.getTrendingCoins("usd");
 
       if (!res) {
@@ -24,10 +27,13 @@ export function HomeScreen() {
             title: "Ups! Something went wrong.",
             placement: "bottom",
          });
+
+         setIsLoading(false);
          return;
       }
 
       setTrendingCoins(res);
+      setIsLoading(false);
    };
 
    useEffect(() => {
@@ -36,13 +42,21 @@ export function HomeScreen() {
 
    if (isError) return <p>Error message</p>; //check error message
 
-   if (userIsLoading) return <p>...Spinner</p>;
-
    return (
       <div>
          <Navbar user={user} isSmallScreen={isSmallScreen} />
-         <Hero isSmallScreen={isSmallScreen} trendingCoins={trendingCoins} />
-         <MainList trendingCoins={trendingCoins} />
+         {isLoading || userIsLoading ? (
+            <Spinner color="indigo.500" size="lg" />
+         ) : (
+            <>
+               <Hero
+                  isSmallScreen={isSmallScreen}
+                  trendingCoins={trendingCoins}
+               />
+               <MainList trendingCoins={trendingCoins} />
+            </>
+         )}
+         <Footer />
       </div>
    );
 }
