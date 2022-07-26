@@ -6,4 +6,5 @@ export * from './Carousel';
 export * from './Hero';
 export * from './MainList';
 export * from './Footer';
+export * from './MarketChart';
 

@@ -18,7 +18,6 @@ export function NavigationProvider({
                   screens: {
                      home: "",
                      coin: "coin/:id",
-                     "user-detail": "user/:id",
                      signin: "signin",
                      signup: "signup",
                   },

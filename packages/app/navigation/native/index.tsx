@@ -1,7 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { HomeScreen } from "../../features/home/screen";
-import { UserDetailScreen } from "../../features/user/detail-screen";
 import { SignIn } from "app/features/signin/Signin";
 import { SignUp } from "app/features/signup/Signup";
 import { CoinDetailScren } from "app/features/coin/detail-screen";
@@ -13,9 +12,6 @@ const Stack = createNativeStackNavigator<{
    coin: {
       coinId: string;
    };
-   "user-detail": {
-      id: string;
-   };
 }>();
 
 export function NativeNavigation() {
@@ -26,13 +22,6 @@ export function NativeNavigation() {
             component={HomeScreen}
             options={{
                title: "Home",
-            }}
-         />
-         <Stack.Screen
-            name="user-detail"
-            component={UserDetailScreen}
-            options={{
-               title: "User",
             }}
          />
          <Stack.Screen

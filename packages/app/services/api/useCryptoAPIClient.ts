@@ -4,6 +4,7 @@ type CryptoAPIClient = {
     getTrendingCoins: (currency: string) => Promise<any>;
     getCoinList: (currency: string) => Promise<any>;
     getCoinDetails: (coinId: string) => Promise<any>;
+    getMarketChart: (coinId: string, days: number, currency: string) => Promise<any>;
 };
 
 export const useCryptoAPIClient = (): CryptoAPIClient => {
@@ -29,5 +30,10 @@ export const useCryptoAPIClient = (): CryptoAPIClient => {
         return await getRequest(url);
     }
 
-    return { getTrendingCoins, getCoinList, getCoinDetails };
+    const getMarketChart = async (coinId: string, days = 365, currency: string): Promise<any> => {
+        const url = `${base_url}/${coinId}/market_chart?vs_currency=${currency}&days=${days}`;
+        return await getRequest(url);
+    }
+
+    return { getTrendingCoins, getCoinList, getCoinDetails, getMarketChart };
 };

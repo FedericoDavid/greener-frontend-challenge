@@ -50,7 +50,7 @@ export const Carousel: React.FC<CarouselProps> = ({
                <span
                   style={{
                      color: profit ? "rgb(14, 203, 129)" : "red",
-                     fontWeight: 500,
+                     fontWeight: "bold",
                   }}
                >
                   {profit && "+"}

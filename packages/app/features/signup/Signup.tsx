@@ -38,7 +38,6 @@ export function SignUp() {
 
    const onSubmit = (data: SignUpInputProps) => {
       if (!data) return;
-      console.log(data);
 
       registerUser(data.email, data.password, data.name);
    };

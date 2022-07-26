@@ -113,5 +113,5 @@ export const Navbar: React.FC<NavbarProps> = ({ user, isSmallScreen }) => {
       </View>
    );
 
-   return <>{isSmallScreen ? renderMobile() : renderDesktop()}</>;
+   return <>{!isSmallScreen ? renderDesktop() : renderMobile()}</>;
 };
