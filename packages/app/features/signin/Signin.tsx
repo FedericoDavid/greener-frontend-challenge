@@ -32,7 +32,7 @@ export function SignIn() {
       },
    });
    const { Label } = FormControl;
-   const { signInUser, forgotPassword, isError } = useAuthUserContext();
+   const { signInUser, forgotPassword } = useAuthUserContext();
 
    const onSubmit = (data: SignInInputProps) => {
       if (!data) return;
@@ -40,22 +40,14 @@ export function SignIn() {
       signInUser(data.email, data.password);
    };
 
-   //    const forgotPasswordHandler = () => {
-   //       const email = emailRef.current.value;
-   //       if (email)
-   //          forgotPassword(email).then(() => {
-   //             emailRef.current.value = "";
-   //          });
-   //    };
-
    return (
       <>
          <SingleHeader />
          <Box safeArea flex={1} p={2} w="40%" mx="auto">
-            <Heading size="lg" color="primary.500">
+            <Heading size="xl" color="indigo.400">
                Welcome
             </Heading>
-            <Heading color="muted.400" size="xs">
+            <Heading color="indigo.400" size="xs">
                Sign in to continue!
             </Heading>
             <VStack space={2} mt={5}>
@@ -117,7 +109,7 @@ export function SignIn() {
                   _text={{
                      fontSize: "xs",
                      fontWeight: "700",
-                     color: "cyan.500",
+                     color: "indigo.400",
                   }}
                   alignSelf="flex-end"
                   mt={1}
@@ -141,12 +133,12 @@ export function SignIn() {
                   </Text>
                   <Link
                      _text={{
-                        color: "cyan.500",
+                        color: "indigo.400",
                         bold: true,
                         fontSize: "sm",
                         marginLeft: "5px",
                      }}
-                     href="#"
+                     href="/signup"
                   >
                      Sign Up
                   </Link>

@@ -34,7 +34,7 @@ export function SignUp() {
       },
    });
    const { Label } = FormControl;
-   const { registerUser, isError } = useAuthUserContext();
+   const { registerUser } = useAuthUserContext();
 
    const onSubmit = (data: SignUpInputProps) => {
       if (!data) return;
@@ -46,10 +46,10 @@ export function SignUp() {
       <>
          <SingleHeader />
          <Box safeArea flex={1} p={2} w="40%" mx="auto">
-            <Heading size="lg" color="primary.500">
+            <Heading size="xl" color="indigo.400">
                Welcome
             </Heading>
-            <Heading color="muted.400" size="xs">
+            <Heading color="indigo.400" size="xs">
                Sign up to continue!
             </Heading>
             <VStack space={2} mt={5}>
@@ -71,7 +71,7 @@ export function SignUp() {
                   name="name"
                />
                {errors.name?.type === "required" && (
-                  <Text>Name is required</Text>
+                  <Text color="red.500">Name is required</Text>
                )}
 
                <Controller
@@ -94,17 +94,17 @@ export function SignUp() {
                   name="email"
                />
                {errors.email?.type === "required" && (
-                  <Text>Email is required</Text>
+                  <Text color="red.500">Email is required</Text>
                )}
                {errors.email?.type === "pattern" && (
-                  <Text>Please enter a valid email</Text>
+                  <Text color="red.500">Please enter a valid email</Text>
                )}
 
                <Controller
                   control={control}
                   rules={{
                      required: true,
-                     minLength: 3,
+                     minLength: 6,
                      maxLength: 8,
                   }}
                   render={({ field: { onChange, onBlur, value } }) => (
@@ -121,13 +121,13 @@ export function SignUp() {
                   name="password"
                />
                {errors.password?.type === "required" && (
-                  <Text>Password is required</Text>
+                  <Text color="red.500">Password is required</Text>
                )}
                {errors.password?.type === "minLength" && (
-                  <Text>Password is too short</Text>
+                  <Text color="red.500">Password is too short</Text>
                )}
                {errors.password?.type === "maxLength" && (
-                  <Text>Password is too long</Text>
+                  <Text color="red.500">Password is too long</Text>
                )}
 
                <VStack space={2}>
@@ -142,17 +142,17 @@ export function SignUp() {
                   </Button>
                </VStack>
                <HStack justifyContent="center">
-                  <Text fontSize="sm" color="muted.700" fontWeight={400}>
+                  <Text fontSize="sm" color="indigo.500" fontWeight={400}>
                      I'm already have an account
                   </Text>
                   <Link
                      _text={{
-                        color: "cyan.500",
+                        color: "indigo.500",
                         bold: true,
                         fontSize: "sm",
                         marginLeft: "5px",
                      }}
-                     href="#"
+                     href="/signin"
                   >
                      Sign In
                   </Link>

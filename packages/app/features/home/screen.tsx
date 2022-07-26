@@ -15,7 +15,7 @@ export function HomeScreen() {
    const toast = useToast();
 
    const cryptoAPIClient = useCryptoAPIClient();
-   const { user, userIsLoading, isError } = useAuthUserContext();
+   const { user, userIsLoading, logoutUser } = useAuthUserContext();
 
    const getTrendingCoins = async (): Promise<void> => {
       setIsLoading(true);
@@ -40,11 +40,13 @@ export function HomeScreen() {
       getTrendingCoins();
    }, []);
 
-   if (isError) return <p>Error message</p>; //check error message
-
    return (
-      <div>
-         <Navbar user={user} isSmallScreen={isSmallScreen} />
+      <>
+         <Navbar
+            user={user}
+            isSmallScreen={isSmallScreen}
+            onPress={() => logoutUser()}
+         />
          {isLoading || userIsLoading ? (
             <Spinner color="indigo.500" size="lg" />
          ) : (
@@ -57,7 +59,7 @@ export function HomeScreen() {
             </>
          )}
          <Footer />
-      </div>
+      </>
    );
 }
 

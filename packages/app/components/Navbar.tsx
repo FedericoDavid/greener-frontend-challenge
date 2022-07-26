@@ -18,16 +18,16 @@ import { MainLogo } from "./MainLogo";
 interface NavbarProps {
    user: User;
    isSmallScreen?: boolean;
+   onPress?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ user, isSmallScreen }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+   user,
+   isSmallScreen,
+   onPress,
+}) => {
    const NavText = (label: string, marginRight?: string) => (
-      <Text
-         color="#fff"
-         fontWeight="bold"
-         marginRight={marginRight ?? ""}
-         cursor="pointer"
-      >
+      <Text color="#fff" marginRight={marginRight ?? ""} cursor="pointer" bold>
          {label}
       </Text>
    );
@@ -76,11 +76,12 @@ export const Navbar: React.FC<NavbarProps> = ({ user, isSmallScreen }) => {
                   <IconButton
                      fontSize="24px"
                      color="white"
+                     colorScheme="indigo"
                      icon={<Icon as={FaUserCircle} name="user" />}
                   />
-                  <Link href="signup">
-                     <Button marginRight="20px">Registrarse</Button>
-                  </Link>
+                  <Button mx={2} onPress={onPress} colorScheme="indigo">
+                     Logout
+                  </Button>
                </>
             )}
          </HStack>
@@ -113,5 +114,5 @@ export const Navbar: React.FC<NavbarProps> = ({ user, isSmallScreen }) => {
       </View>
    );
 
-   return <>{!isSmallScreen ? renderDesktop() : renderMobile()}</>;
+   return <>{isSmallScreen ? renderMobile() : renderDesktop()}</>;
 };

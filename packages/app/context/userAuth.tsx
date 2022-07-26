@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { useRouter } from "solito/router";
 import {
    signInWithEmailAndPassword,
    createUserWithEmailAndPassword,
@@ -9,6 +10,7 @@ import {
 } from "firebase/auth";
 
 import { auth } from "../services/db/firebase";
+import { useToast } from "native-base";
 
 export const AuthUserContext = createContext<any>({});
 
@@ -23,7 +25,6 @@ export interface User {
 export interface UserContextProviderProps {
    user: User;
    userLoading: boolean;
-   isError: boolean;
    signInUser: (email: string, password: string) => void;
    registerUser: (email: string, password: string, name: string) => void;
    logoutUser: () => void;
@@ -33,7 +34,9 @@ export interface UserContextProviderProps {
 export function AuthUserContextProvider({ children }) {
    const [user, setUser] = useState<User | any>();
    const [userIsLoading, setUserILoading] = useState<boolean>(false);
-   const [isError, setIsError] = useState<boolean>(false);
+
+   const { push } = useRouter();
+   const toast = useToast();
 
    useEffect(() => {
       setUserILoading(true);
@@ -44,10 +47,8 @@ export function AuthUserContextProvider({ children }) {
          } else {
             setUser(null);
             console.log("unauthorized");
-            setIsError(true);
          }
 
-         setIsError(false);
          setUserILoading(false);
       });
 
@@ -77,10 +78,20 @@ export function AuthUserContextProvider({ children }) {
       updateProfile(userCredential.user, {
          displayName: name,
       })
-         .then((res) => console.log(res))
+         .then((res) => {
+            toast.show({
+               title: "Register Successful ✔",
+               placement: "top",
+            });
+            push("/");
+         })
          .catch((err) => {
+            toast.show({
+               title: `Ups! ${err.message}`,
+               placement: "top",
+            });
+
             console.error(err);
-            setIsError(true);
          })
          .finally(() => setUserILoading(false));
    };
@@ -89,15 +100,31 @@ export function AuthUserContextProvider({ children }) {
       setUserILoading(true);
 
       signInWithEmailAndPassword(auth, email, password)
-         .then((res) => console.log(res))
+         .then((res) => {
+            toast.show({
+               title: "Register Successful ✔",
+               placement: "top",
+            });
+            push("/");
+         })
          .catch((err) => {
+            toast.show({
+               title: `Ups! ${err.message}`,
+               placement: "top",
+            });
+
             console.error(err.code);
-            setIsError(true);
          })
          .finally(() => setUserILoading(false));
    };
 
-   const logoutUser = () => signOut(auth);
+   const logoutUser = () =>
+      signOut(auth).then(() =>
+         toast.show({
+            title: "Logout Successful ✔",
+            placement: "top",
+         })
+      );
 
    const forgotPassword = (email: string) =>
       sendPasswordResetEmail(auth, email);
@@ -105,7 +132,6 @@ export function AuthUserContextProvider({ children }) {
    const contextValue = {
       user,
       userIsLoading,
-      isError,
       signInUser,
       registerUser,
       logoutUser,
