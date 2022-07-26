@@ -1,20 +1,20 @@
 import React from "react";
 import { Link } from "solito/link";
 import {
-   HStack,
-   Text,
-   View,
-   Box,
    Button,
-   StatusBar,
    Icon,
    IconButton,
+   VStack,
+   Stack,
+   HStack,
+   Center,
 } from "native-base";
-import { GiHamburgerMenu } from "react-icons/gi";
 import { FaUserCircle } from "react-icons/fa";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 import { User } from "app/context/userAuth";
 import { MainLogo } from "./MainLogo";
+
 interface NavbarProps {
    user: User;
    isSmallScreen?: boolean;
@@ -23,25 +23,54 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({
    user,
-   isSmallScreen,
    onPress,
+   isSmallScreen,
 }) => {
    const NavText = (label: string, marginRight?: string) => (
-      <Text color="#fff" marginRight={marginRight ?? ""} cursor="pointer" bold>
+      <Center
+         marginRight={marginRight ?? ""}
+         cursor="pointer"
+         _text={{
+            color: "#fff",
+            fontWeight: "bold",
+            fontSize: "14px",
+         }}
+      >
          {label}
-      </Text>
+      </Center>
    );
 
-   const renderDesktop = () => (
+   const Mobile = () => (
       <HStack
          bg="#181A20"
          px="1"
          justifyContent="space-between"
          alignItems="center"
          w="100%"
-         backgroundColor="#181A20"
+         maxW="768px"
       >
-         <HStack justifyContent="space-between" width="50%" alignItems="center">
+         <Center alignItems="center">
+            <MainLogo />
+         </Center>
+         <Center>
+            <IconButton
+               fontSize="24px"
+               color="white"
+               icon={<Icon as={GiHamburgerMenu} name="menu" />}
+            />
+         </Center>
+      </HStack>
+   );
+
+   const Desktop = () => (
+      <>
+         <VStack
+            justifyContent="space-around"
+            width="40%"
+            alignItems="center"
+            backgroundColor="#181A20"
+            flexDirection="row"
+         >
             <MainLogo />
             {NavText("Buy cripto")}
             {NavText("Market")}
@@ -49,8 +78,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             {NavText("Earn")}
             {NavText("Finances")}
             {NavText("NFT")}
-         </HStack>
-         <HStack alignItems="center">
+         </VStack>
+         <VStack
+            alignItems="center"
+            flexDirection="row"
+            backgroundColor="#181A20"
+         >
             {!user ? (
                <>
                   <Link href="/signin">
@@ -79,40 +112,27 @@ export const Navbar: React.FC<NavbarProps> = ({
                      colorScheme="indigo"
                      icon={<Icon as={FaUserCircle} name="user" />}
                   />
-                  <Button mx={2} onPress={onPress} colorScheme="indigo">
+                  <Button onPress={onPress} colorScheme="indigo">
                      Logout
                   </Button>
                </>
             )}
-         </HStack>
-      </HStack>
+         </VStack>
+      </>
    );
 
-   const renderMobile = () => (
-      <View>
-         <StatusBar backgroundColor="#181A20" />
-         <Box safeAreaTop bg="#181A20" />
-         <HStack
-            bg="#181A20"
-            px="1"
-            justifyContent="space-between"
-            alignItems="center"
-            w="100%"
-            maxW="768px"
-         >
-            <HStack alignItems="center">
-               <MainLogo />
-            </HStack>
-            <HStack>
-               <IconButton
-                  fontSize="24px"
-                  color="white"
-                  icon={<Icon as={GiHamburgerMenu} name="menu" />}
-               />
-            </HStack>
-         </HStack>
-      </View>
+   return (
+      <Stack
+         bg="#181A20"
+         px={1}
+         justifyContent="space-between"
+         alignItems="center"
+         w="100%"
+         height="80px"
+         flexDirection="row"
+         backgroundColor="#181A20"
+      >
+         {isSmallScreen ? <Mobile /> : <Desktop />}
+      </Stack>
    );
-
-   return <>{isSmallScreen ? renderMobile() : renderDesktop()}</>;
 };

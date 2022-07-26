@@ -44,8 +44,8 @@ export function HomeScreen() {
       <>
          <Navbar
             user={user}
-            isSmallScreen={isSmallScreen}
             onPress={() => logoutUser()}
+            isSmallScreen={isSmallScreen}
          />
          {isLoading || userIsLoading ? (
             <Spinner color="indigo.500" size="lg" />
